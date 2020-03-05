@@ -7,6 +7,8 @@ Conway's game of life in Emacs Lisp.
 # Project Management
 
 ## Backlog
+- switch to matrix sum technique
+  - with efficient matrix sum
 
 ### Matrix interface
 - decide on matrix immutability
