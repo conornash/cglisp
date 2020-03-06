@@ -1,8 +1,38 @@
+;;;;
 ;;;; Conway's Game of Life implementation 
+;;;; ====================================
+
 (load "src/matrix")
 
-(setf cgl-game-size 20)
+(setf cgl-game-size 30)
 
+;;;
+;;; Main commands
+;;;
+
+(defconst cgl-buffer-name "* CGL *")
+
+(defun cgl-start ()
+  "Opens a buffer to let the user describe an initial state
+   Clears the buffer if previously used by a game."
+  (interactive)
+  (if (get-buffer cgl-buffer-name) (kill-buffer cgl-buffer-name))
+  (switch-to-buffer (get-buffer-create cgl-buffer-name)))
+
+(defun cgl-step ()
+  "Runs a step of the game from the current state string in
+   the CGL buffer"
+  (interactive)
+  (if (get-buffer cgl-buffer-name)
+      (switch-to-buffer cgl-buffer-name)
+    (error "Please create a game state with cgl-start"))
+  (setq buffer-read-only nil)
+  (let ((next-string
+	 (cgl--state-to-string (cgl-transition (cgl--string-to-state (buffer-string))))))
+    (erase-buffer)
+    (insert next-string))
+  (setq buffer-read-only t))
+  
 ;;;
 ;;; Transitioning from a game state to the next
 ;;;
