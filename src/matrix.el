@@ -1,4 +1,5 @@
 ;;;; Simple interface to work with numerical matrices.
+
 ;;; Matrices are represented by vectors (rows) of vectors of same size
 ;;; (columns)
 
