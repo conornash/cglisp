@@ -73,9 +73,14 @@ o o  oo o
     oo
 o")
 
+(defconst correct-state-string-2 "\
+oo
+
+oo")
+
 (setq cgl-game-size 10)
 
-(ert-deftest cgl--string-to-state--correct-state ()
+(ert-deftest cgl--string-to-state--correct-state-1 ()
   (let ((result-matrix (cgl--adjust-matrix-to-size
 			(matrix
 			 [1 0 1 0 0 1 1 0 1]
@@ -83,6 +88,15 @@ o")
 			 [1 0 0 0 0 0 0 0 0])
 			cgl-game-size)))
     (should (equal (cgl--string-to-state correct-state-string) result-matrix))))
+
+(ert-deftest cgl--string-to-state--correct-state-2 ()
+  (let ((result-matrix (cgl--adjust-matrix-to-size
+			(matrix
+			 [1 1]
+			 [0 0]
+			 [1 1])
+			cgl-game-size)))
+    (should (equal (cgl--string-to-state correct-state-string-2) result-matrix))))
 
 
 (defconst wrong-state-string "\
@@ -142,3 +156,37 @@ o oo
 		    [0 0 1 0]
 		    [1 0 1 1]
 		    [0 0 0 0])))))
+
+;;; First noticed bug
+(defconst cgl--string-issue-1-input "oo
+o
+
+oo
+o")
+
+(defconst cgl--string-issue-1-output "oo
+oo
+
+oo
+oo")
+
+(defconst cgl--string-issue-1-output-untrimmed "oo     
+oo       
+  
+oo   
+oo
+
+
+")
+
+(ert-deftest cgl--trim-state-string--test ()
+  (should (equal (cgl--trim-state-string cgl--string-issue-1-output-untrimmed)
+		 cgl--string-issue-1-output)))
+
+(ert-deftest cgl--issue-1 ()
+  (should (equal cgl--string-issue-1-output
+		 (cgl--trim-state-string
+		  (cgl--state-to-string
+		   (cgl-transition
+		    (cgl--string-to-state
+		     cgl--string-issue-1-input)))))))

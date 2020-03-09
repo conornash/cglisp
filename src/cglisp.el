@@ -32,7 +32,7 @@
     (erase-buffer)
     (insert next-string))
   (setq buffer-read-only t))
-  
+
 ;;;
 ;;; Transitioning from a game state to the next
 ;;;
@@ -75,7 +75,7 @@
 (defun cgl--string-to-state (string)
   (cgl--adjust-matrix-to-size
    (vconcat (mapcar #'cgl--line-string-to-vector
-		    (split-string string "[\n\f\r]+")))
+		    (split-string string "[\n\f\r]")))
    cgl-game-size))
 
 (defun cgl--line-string-to-vector (line-string)
@@ -107,3 +107,15 @@
 (defun cgl--row-to-string (row)
   (apply 'string (mapcar (lambda (val) (if (= val 1) ?o ?\s)) row)))
 
+;;;
+;;; Utils
+;;;
+
+(defun cgl--trim-state-string (stringstate)
+  "Utility to remove trailing spaces and ending newlines
+   for easier string state comparisons"
+  (string-trim-right
+   (mapconcat
+    #'string-trim-right
+    (split-string stringstate "[\n\f\r]+")
+    "\n")))
