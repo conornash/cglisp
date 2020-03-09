@@ -21,19 +21,30 @@ The game board is a square of edge size 50. This is defined at top of cglisp.el 
 Live cells are noted "o", dead/empty cells " " (whitespace). Newlines are used to get to the next row of the state. An example would look like this
 
 ```
-o o o o
+oo oo
 
 o o o o o o
 
 
-o
+ooo
 ```
-Exceeding ``cgl-game-size`` on a line or using any other character than "o" and whitespace will yield an error.
+Exceeding ``cgl-game-size`` on a line, or using any other character than "o" or whitespace, will yield an error.
 
 ### Run a single step
-``M-x cgl-step`` will make the game go through one step. It will use the state currently described in the game buffer, compute the next state and write it back in the game buffer, overwriting the previous state
+``M-x cgl-step`` will make the game go through one step. It will use the state currently described in the game buffer, compute the next state and write it back in the game buffer, overwriting the previous state. In the former example, it would update this way:
+```
+
+o oooo
+
+
+ o
+ o
+ o
+```
 
 ## Todo
+- customize projectile for handling elisp projects / git state and testing
+- change line height for game buffer
 - finish documentation
 - implement game run / stop
 - Remove matrix.el
