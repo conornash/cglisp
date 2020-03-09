@@ -1,17 +1,40 @@
-# cglisp
+# cglisp: Conway's Game of Life (CGL) in Emacs Lisp
 
-Conway's game of life in Emacs Lisp.
+A simple implementation of Conway's Game of Life (CGL) for Emacs, written in Emacs Lisp.
 
-# Soft Architecture
+## Installation
 
-# Project Management
+Requires Emacs 24.1 or greater.
 
-## Backlog
-- switch to matrix sum technique
-  - with efficient matrix sum
+- Download src/cglisp.el
+- Load it interactively with  ```M-x load / PATH/TO/cglisp.el``` 
+  - or if you really like it, by adding ```(load PATH/TO/cglisp.el)``` in your ``.emacs``
+#### Board size
+The game board is a square of edge size 50. This is defined at top of cglisp.el and can be changed with ```(setf cgl-game-size SIZE)```
 
-### Matrix interface
-- decide on matrix immutability
-- optimize matrix getters / setters
-- enable matrix direct access via (matr-name [n p])
-  - and setter too
+## Usage
+
+### Start a game
+``M-x cgl-start`` will open a new editable buffer in which you can write an initial CGL state.
+
+### Describe an initial state
+Live cells are noted "o", dead/empty cells " " (whitespace). Newlines are used to get to the next row of the state. An example would look like this
+
+```
+o o o o
+
+o o o o o o
+
+
+o
+```
+Exceeding ``cgl-game-size`` on a line or using any other character than "o" and whitespace will yield an error.
+
+### Run a single step
+``M-x cgl-step`` will make the game go through one step. It will use the state currently described in the game buffer, compute the next state and write it back in the game buffer, overwriting the previous state
+
+## Todo
+- finish documentation
+- implement game run / stop
+- Remove matrix.el
+- add ability for comments in game buffer
