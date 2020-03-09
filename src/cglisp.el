@@ -2,9 +2,11 @@
 ;;;; Conway's Game of Life implementation 
 ;;;; ====================================
 
+(require 'subr-x)
 (load "src/matrix")
 
-(setf cgl-game-size 30)
+
+(setf cgl-game-size 50)
 
 ;;;
 ;;; Main commands
