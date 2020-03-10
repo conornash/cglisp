@@ -119,5 +119,5 @@
   (string-trim-right
    (mapconcat
     #'string-trim-right
-    (split-string stringstate "[\n\f\r]+")
+    (split-string stringstate "[\n\f\r]")
     "\n")))

@@ -161,17 +161,20 @@ o oo
 (defconst cgl--string-issue-1-input "oo
 o
 
+
 oo
 o")
 
 (defconst cgl--string-issue-1-output "oo
 oo
 
+
 oo
 oo")
 
 (defconst cgl--string-issue-1-output-untrimmed "oo     
 oo       
+
   
 oo   
 oo
