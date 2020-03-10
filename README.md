@@ -2,6 +2,9 @@
 
 A simple implementation of Conway's Game of Life (CGL) for Emacs, written in Emacs Lisp.
 
+## This project is not stable yet
+It doesn't work properly at this time
+
 ## Installation
 
 Requires Emacs 24.1 or greater.
