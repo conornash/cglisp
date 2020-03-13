@@ -4,8 +4,6 @@
 
 (require 'subr-x)
 (load "src/cgl-mode")
-(load "src/matrix")
-
 
 (setf cgl-game-size 40)
 
@@ -42,15 +40,18 @@
 ;;; Transitioning from a game state to the next
 ;;;
 
+;;; Note : game states are represented by matrices of 0/1 values,
+;;; implemented below by vectors of vectors
+
 ;; relative positions of cells to check for aliveness of cell (0,0)
 (defconst cgl--cell-check-positions '((-1 -1) (-1 0) (-1 1) (0 -1) (0 1) (1 -1) (1 0) (1 1)))
 
 (defun cgl-transition (state)
   "Returns a new state (represeted as a matrix) with updated data
   according to CGL's rules"
-  (apply #'matrix (seq-map-indexed
-		   (lambda (vector idx) (funcall #'cgl--vector-transition vector idx state))
-		   state)))
+  (vconcat (seq-map-indexed
+	    (lambda (vector idx) (funcall #'cgl--vector-transition vector idx state))
+	    state)))
 
 (defun cgl--vector-transition (vector row-index state)
   "Returns the new vector given previous state's vector"
@@ -68,9 +69,11 @@
 	  (t 0))))
 
 (defun cgl--mget (state row col)
+  "Returns the value at (row, col) in the state matrix,
+   or 0 if out of bounds"
   (if (and (< -1 row (length state))
 	   (< -1 col (length (aref state 0))))
-      (mget state row col)
+      (aref (aref state row) col)
     0))
 
 ;;;
