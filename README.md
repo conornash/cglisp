@@ -22,6 +22,8 @@ The game board is a square of edge size 50. This is defined at top of cglisp.el 
 
 You can then describe an initial state with spaces and "o"s, and run it step by step by pressing ``s``, or restarting by pressing ``r``.
 
+Quit by pressing ``q``.
+
 ### Describe an initial state
 Live cells are noted "o", dead/empty cells " " (whitespace). Newlines are used to get to the next row of the state. An example would look like this
 

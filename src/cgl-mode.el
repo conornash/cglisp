@@ -3,4 +3,5 @@
   nil
   "GAME OF LIFE"
   '(("s" . cgl-step)
-    ("r" . cgl-start)))
+    ("r" . cgl-start)
+    ("q" . kill-current-buffer)))

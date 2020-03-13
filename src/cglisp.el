@@ -21,6 +21,7 @@
   (interactive)
   (if (get-buffer cgl-buffer-name) (kill-buffer cgl-buffer-name))
   (switch-to-buffer (get-buffer-create cgl-buffer-name))
+  (delete-other-windows)
   (cgl-mode))
 
 (defun cgl-step ()
