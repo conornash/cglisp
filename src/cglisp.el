@@ -3,10 +3,11 @@
 ;;;; ====================================
 
 (require 'subr-x)
+(load "src/cgl-mode")
 (load "src/matrix")
 
 
-(setf cgl-game-size 50)
+(setf cgl-game-size 40)
 
 ;;;
 ;;; Main commands
@@ -19,7 +20,8 @@
    Clears the buffer if previously used by a game."
   (interactive)
   (if (get-buffer cgl-buffer-name) (kill-buffer cgl-buffer-name))
-  (switch-to-buffer (get-buffer-create cgl-buffer-name)))
+  (switch-to-buffer (get-buffer-create cgl-buffer-name))
+  (cgl-mode))
 
 (defun cgl-step ()
   "Runs a step of the game from the current state string in
