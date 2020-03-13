@@ -44,11 +44,3 @@ o oooo
  o
  o
 ```
-
-## Todo
-- customize projectile for handling elisp projects / git state and testing
-- change line height for game buffer
-- finish documentation
-- implement game run / stop
-- Remove matrix.el
-- add ability for comments in game buffer
