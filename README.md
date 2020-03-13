@@ -2,9 +2,6 @@
 
 A simple implementation of Conway's Game of Life (CGL) for Emacs, written in Emacs Lisp.
 
-## This project is not stable yet
-It doesn't work properly at this time
-
 ## Installation
 
 Requires Emacs 24.1 or greater.
@@ -17,7 +14,6 @@ The game board is a square of edge size 50. This is defined at top of cglisp.el 
 
 ## Usage
 
-### Start a game
 ``M-x cgl-start`` will open a new editable buffer in which you can write an initial CGL state.
 
 You can then describe an initial state with spaces and "o"s, and run it step by step by pressing ``s``, or restarting by pressing ``r``.
