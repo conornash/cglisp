@@ -4,4 +4,5 @@
   "GAME OF LIFE"
   '(("s" . cgl-step)
     ("r" . cgl-start)
-    ("q" . kill-current-buffer)))
+    ("q" . kill-current-buffer)
+    ("g" . cgl-go-pause)))

@@ -22,6 +22,10 @@ The game board is a square of edge size 50. This is defined at top of cglisp.el 
 
 You can then describe an initial state with spaces and "o"s, and run it step by step by pressing ``s``, or restarting by pressing ``r``.
 
+Run automatically by pressing ``g`` -- a step will be made every 0.1 second (defined by variable ``cgl--game-speed``).
+
+Pause it by pressing ``g`` again.
+
 Quit by pressing ``q``.
 
 ### Describe an initial state

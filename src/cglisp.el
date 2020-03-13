@@ -13,6 +13,14 @@
 
 (defconst cgl-buffer-name "* CGL *")
 
+(defconst cgl--game-speed 0.1
+  "Time interval between 2 game states transition when running the game automatically")
+
+(defvar cgl--auto-mode-timer nil
+  "Timer when the game is currently running automatically, also used as a flag
+   to detect if the game is running automatically")
+
+
 (defun cgl-start ()
   "Opens a buffer to let the user describe an initial state
    Clears the buffer if previously used by a game."
@@ -35,6 +43,14 @@
     (erase-buffer)
     (insert next-string))
   (setq buffer-read-only t))
+
+(defun cgl-go-pause ()
+  "Runs the game automatically: a step every cgl--game-speed seconds, or
+   stops running if it was already running"
+  (interactive)
+  (if cgl--auto-mode-timer
+      (setf cgl--auto-mode-timer (cancel-timer cgl--auto-mode-timer))
+    (setf cgl--auto-mode-timer (run-at-time 0 cgl--game-speed #'cgl-step))))
 
 ;;;
 ;;; Transitioning from a game state to the next
