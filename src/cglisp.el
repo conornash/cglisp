@@ -28,6 +28,7 @@
   (if (get-buffer cgl-buffer-name) (kill-buffer cgl-buffer-name))
   (switch-to-buffer (get-buffer-create cgl-buffer-name))
   (delete-other-windows)
+  (insert "\n\n\n\n\n     ") ;; Starts at position (5, 5)  (cgl--reset-position)
   (cgl-mode))
 
 (defun cgl-step ()
@@ -42,6 +43,7 @@
 	 (cgl--state-to-string (cgl-transition (cgl--string-to-state (buffer-string))))))
     (erase-buffer)
     (insert next-string))
+  (cgl--reset-position)
   (setq buffer-read-only t))
 
 (defun cgl-go-pause ()
@@ -51,6 +53,11 @@
   (if cgl--auto-mode-timer
       (setf cgl--auto-mode-timer (cancel-timer cgl--auto-mode-timer))
     (setf cgl--auto-mode-timer (run-at-time 0 cgl--game-speed #'cgl-step))))
+
+(defun cgl--reset-position ()
+  (goto-char (point-min))
+  (vertical-motion 5)
+  (forward-char 5))
 
 ;;;
 ;;; Transitioning from a game state to the next

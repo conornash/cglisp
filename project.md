@@ -1,15 +1,14 @@
 # Backlog
-- implement game run / stop
-- center the game appropiately
-- Find good font for run buffer
-- add ability for comments in game buffer
+- Find good font
 - define infinite mode
 - define earth mode
 
 ## Icebox
-
+- add ability for comments in game buffer
 
 ## Done
+- center the game appropiately
+- implement game run / stop
 - remove matrix.el
 - make the game fullscreen and with a quit command
 - create simple bindings to use game
