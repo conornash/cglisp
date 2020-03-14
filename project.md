@@ -7,6 +7,7 @@
 - add ability for comments in game buffer
 
 ## Done
+- stop the timer on buffer death
 - center the game appropiately
 - implement game run / stop
 - remove matrix.el

@@ -29,7 +29,11 @@
   (switch-to-buffer (get-buffer-create cgl-buffer-name))
   (delete-other-windows)
   (insert "\n\n\n\n\n     ") ;; Starts at position (5, 5)  (cgl--reset-position)
-  (cgl-mode))
+  (cgl-mode)
+  (add-hook 'kill-buffer-hook
+	    (lambda ()
+	      (if cgl--auto-mode-timer
+		  (setf cgl--auto-mode-timer (cancel-timer cgl--auto-mode-timer))))))
 
 (defun cgl-step ()
   "Runs a step of the game from the current state string in
