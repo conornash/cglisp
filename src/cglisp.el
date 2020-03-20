@@ -5,11 +5,11 @@
 (require 'subr-x)
 (load "src/cgl-mode")
 
-(setf cgl-game-size 40)
+;;;
+;;; Game settings
+;;;
 
-;;;
-;;; Main commands
-;;;
+(setf cgl-game-size 40)
 
 (defconst cgl-buffer-name "* CGL *")
 
@@ -20,6 +20,15 @@
   "Timer when the game is currently running automatically, also used as a flag
    to detect if the game is running automatically")
 
+(defvar cgl-earth-mode nil
+  "Earth mode for CGL: the game board is a globe. This means that
+   cells on edges of the game a re considered adjacent to their
+   opposite edge cells, e.g. for a board of size 40 cell (0,1) is
+   adjacent to cell (39,1)")
+
+;;;
+;;; Main commands
+;;;
 
 (defun cgl-start ()
   "Opens a buffer to let the user describe an initial state
@@ -101,7 +110,9 @@
   (if (and (< -1 row (length state))
 	   (< -1 col (length (aref state 0))))
       (aref (aref state row) col)
-    0))
+    (if (not cgl-earth-mode)
+	0 ; for regular mode, out-of-bound is 0, for earth mode, use modulo
+      (aref (aref state (mod row (length state))) (mod col (length state))))))
 
 ;;;
 ;;; Converting a string to a game state

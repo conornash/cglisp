@@ -5,4 +5,5 @@
   '(("s" . cgl-step)
     ("r" . cgl-start)
     ("q" . kill-current-buffer)
-    ("g" . cgl-go-pause)))
+    ("g" . cgl-go-pause)
+    ("e" . (lambda () (interactive) (setf cgl-earth-mode (not cgl-earth-mode))))))

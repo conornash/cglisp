@@ -41,6 +41,48 @@
 		    [0 1 1 0]
 		    [0 0 0 0]]))))
 
+(ert-deftest cgl-transition--earth-mode ()
+  ;;; Tests correctness of various transitions for CGL in earth mode
+  (let ((cgl-earth-mode t))
+    (let ((init-state [[0 0 0]
+		       [0 0 0]
+		       [0 0 0]]))
+      (should (equal init-state (cgl-transition init-state))))
+    
+    (let ((init-state [[1 0 0]
+		       [0 1 0]
+		       [0 1 0]]))
+      (should (equal (cgl-transition init-state)
+		     [[1 1 1]
+		      [1 1 1]
+		      [1 1 1]])))
+    
+    (let ((init-state [[1 1 0]
+		       [1 1 0]
+		       [0 0 0]]))
+      (should (equal (cgl-transition init-state)
+		     [[1 1 0]
+		      [1 1 0]
+		      [0 0 0]])))
+
+    (let ((init-state [[0 0 0]
+		       [1 1 1]
+		       [0 0 0]]))
+      (should (equal (cgl-transition init-state)
+		     [[1 1 1]
+		      [1 1 1]
+		      [1 1 1]])))
+    
+    (let ((init-state [[1 1 0 0]
+		       [0 1 0 0]
+		       [0 0 1 0]			    
+		       [0 0 1 0]]))
+      (should (equal (cgl-transition init-state)
+		     [[1 1 1 0]
+		      [1 1 1 0]			   
+		      [0 1 1 0]
+		      [0 0 1 1]])))))
+
 (ert-deftest test-cgl--cell-transition ()
   (let ((init-state [[1 1 0 0]
 		     [0 1 0 0]
@@ -53,6 +95,21 @@
     (should (equal (cgl--cell-transition init-state 1 1 1) 1))
     (should (equal (cgl--cell-transition init-state 0 1 2) 1))
     (should (equal (cgl--cell-transition init-state 1 3 2) 0))))
+
+(ert-deftest cgl--cell-transition--earth-mode ()
+  (let ((cgl-earth-mode t)
+	(init-state [[1 1 0 0]
+		     [0 1 0 0]
+		     [0 0 1 0]			    
+		     [0 0 1 0]]))
+    (should (equal (cgl--cell-transition init-state 1 0 0) 1))
+    (should (equal (cgl--cell-transition init-state 1 0 1) 1))
+    (should (equal (cgl--cell-transition init-state 0 0 2) 1))
+    (should (equal (cgl--cell-transition init-state 0 0 3) 0))
+    (should (equal (cgl--cell-transition init-state 0 1 0) 1))
+    (should (equal (cgl--cell-transition init-state 1 1 1) 1))
+    (should (equal (cgl--cell-transition init-state 0 1 2) 1))
+    (should (equal (cgl--cell-transition init-state 1 3 2) 1))))
 
 (ert-deftest cgl--mget ()
   ;; should return 0 rather than fail when mget is out of bounds for matrix

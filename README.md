@@ -8,7 +8,7 @@ Requires Emacs 24.1 or greater.
 
 - Download src/cglisp.el
 - Load it interactively with  ```M-x load / PATH/TO/cglisp.el``` 
-  - or if you really like it, by adding ```(load PATH/TO/cglisp.el)``` in your ``.emacs``
+  - or if you *really* like CGL, by adding ```(load PATH/TO/cglisp.el)``` in your ``.emacs``
 #### Board size
 The game board is a square of edge size 50. This is defined at top of cglisp.el and can be changed with ```(setf cgl-game-size SIZE)```
 
@@ -48,3 +48,10 @@ o oooo
  o
  o
 ```
+
+
+### Earth mode
+By default, there is nothing out of the game board: cells on edges and corner thus have fewer neighbouring cells (i.e. only 3 for corners, and 5 for edges). Toggling Earth mode makes the board connected with itself: the top edge's top is the bottom edge, and the left edge's left is the right edge. Thus the board does not have any edge in this mode.
+
+Toggle earth mode by pressing ``e`` during the game.
+

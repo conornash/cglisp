@@ -1,12 +1,13 @@
 # Backlog
 - Find good font
 - define infinite mode
-- define earth mode
+
 
 ## Icebox
 - add ability for comments in game buffer
 
 ## Done
+- define earth mode
 - stop the timer on buffer death
 - center the game appropiately
 - implement game run / stop
