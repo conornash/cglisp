@@ -7,7 +7,7 @@ A simple implementation of Conway's Game of Life (CGL) for Emacs, written in Ema
 Requires Emacs 24.1 or greater.
 
 - Download src/cglisp.el
-- Load it interactively with  ```M-x load / PATH/TO/cglisp.el``` 
+- Load it interactively with  ```M-x load-file PATH/TO/cglisp.el``` 
   - or if you *really* like CGL, by adding ```(load PATH/TO/cglisp.el)``` in your ``.emacs``
 #### Board size
 The game board is a square of edge size 40. This is defined at top of cglisp.el and can be changed with ```(setf cgl-game-size SIZE)```
