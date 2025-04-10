@@ -58,7 +58,7 @@
    the CGL buffer"
   (interactive)
   (if (get-buffer cgl-buffer-name)
-      (switch-to-buffer cgl-buffer-name)
+      (set-buffer cgl-buffer-name)
     (error "Please create a game state with cgl-start"))
   (setq buffer-read-only nil)
   (let ((next-string
