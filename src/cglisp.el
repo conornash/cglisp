@@ -1,5 +1,5 @@
 ;;;;
-;;;; Conway's Game of Life implementation 
+;;;; Conway's Game of Life implementation
 ;;;; ====================================
 
 (require 'subr-x)
@@ -25,15 +25,27 @@
 (defconst cgl--game-speed 0.1
   "Time interval between 2 game states transition when running the game automatically")
 
-(defvar cgl--auto-mode-timer nil
-  "Timer when the game is currently running automatically, also used as a flag
+(defvar cgl--auto-mode-process nil
+  "Process when the game is running automatically, also used as a flag
    to detect if the game is running automatically")
 
 (defvar cgl-earth-mode nil
   "Earth mode for CGL: the game board is a globe. This means that
-   cells on edges of the game a re considered adjacent to their
+   cells on edges of the game are considered adjacent to their
    opposite edge cells, e.g. for a board of size 40 cell (0,1) is
    adjacent to cell (39,1)")
+
+(defun cgl--sentinel (process event)
+  (when (eq process cgl--auto-mode-process)
+    (run-at-time 0 nil
+                 (lambda (proc)
+                   (when (eq proc cgl--auto-mode-process)
+                     (cgl-step)
+                     (setq cgl--auto-mode-process
+                           (start-process "cgl-process" nil "sleep"
+                                        (number-to-string cgl--game-speed)))
+                     (set-process-sentinel cgl--auto-mode-process #'cgl--sentinel)))
+                 process)))  ;; Pass process as argument to lambda
 
 ;;;
 ;;; Main commands
@@ -49,9 +61,10 @@
   (insert "\n\n\n\n\n     ") ;; Starts at position (5, 5)  (cgl--reset-position)
   (cgl-mode)
   (add-hook 'kill-buffer-hook
-	    (lambda ()
-	      (if cgl--auto-mode-timer
-		  (setf cgl--auto-mode-timer (cancel-timer cgl--auto-mode-timer))))))
+        (lambda ()
+          (when cgl--auto-mode-process
+        (delete-process cgl--auto-mode-process)
+        (setq cgl--auto-mode-process nil)))))
 
 (defun cgl-step ()
   "Runs a step of the game from the current state string in
@@ -72,9 +85,13 @@
   "Runs the game automatically: a step every cgl--game-speed seconds, or
    stops running if it was already running"
   (interactive)
-  (if cgl--auto-mode-timer
-      (setf cgl--auto-mode-timer (cancel-timer cgl--auto-mode-timer))
-    (setf cgl--auto-mode-timer (run-at-time 0 cgl--game-speed #'cgl-step))))
+  (if cgl--auto-mode-process
+      (progn
+        (delete-process cgl--auto-mode-process)
+        (setq cgl--auto-mode-process nil))
+    (setq cgl--auto-mode-process
+          (start-process "cgl-process" nil "sleep" (number-to-string cgl--game-speed)))
+    (set-process-sentinel cgl--auto-mode-process #'cgl--sentinel)))
 
 (defun cgl--reset-position ()
   (goto-char (point-min))
